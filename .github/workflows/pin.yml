@@ -1,0 +1,16 @@
+name: Daily Pins
+on:
+  schedule:
+    - cron: '0 6,9,12,15 * * *'
+  workflow_dispatch:
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm install puppeteer
+      - run: node pin.js
+        env:
+          MAVELY_EMAIL: ${{ secrets.EMAIL }}
+          MAVELY_PASS: ${{ secrets.PASS }}
